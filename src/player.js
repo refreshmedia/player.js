@@ -845,9 +845,13 @@ class Player {
     setVolume(volume) {
         return this.set('volume', volume);
     }
+
+    destroy() {
+        console.log('implement this method');
+    }
 }
 
 initializeEmbeds();
-resizeEmbeds();
+// resizeEmbeds();
 
 export default Player;

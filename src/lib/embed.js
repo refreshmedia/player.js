@@ -164,37 +164,37 @@ export function initializeEmbeds(parent = document) {
  * @param {HTMLElement} [parent=document] The parent element.
  * @return {void}
  */
-export function resizeEmbeds(parent = document) {
-    const onMessage = (event) => {
-        if (!isVimeoUrl(event.origin)) {
-            return;
-        }
+// export function resizeEmbeds(parent = document) {
+//     const onMessage = (event) => {
+//         if (!isVimeoUrl(event.origin)) {
+//             return;
+//         }
 
-        if (!event.data || event.data.event !== 'spacechange') {
-            return;
-        }
+//         if (!event.data || event.data.event !== 'spacechange') {
+//             return;
+//         }
 
-        const iframes = parent.querySelectorAll('iframe');
+//         const iframes = parent.querySelectorAll('iframe');
 
-        for (let i = 0; i < iframes.length; i++) {
-            if (iframes[i].contentWindow !== event.source) {
-                continue;
-            }
+//         for (let i = 0; i < iframes.length; i++) {
+//             if (iframes[i].contentWindow !== event.source) {
+//                 continue;
+//             }
 
-            const space = iframes[i].parentElement;
+//             const space = iframes[i].parentElement;
 
-            if (space && space.className.indexOf('vimeo-space') !== -1) {
-                space.style.paddingBottom = `${event.data.data[0].bottom}px`;
-            }
+//             if (space && space.className.indexOf('vimeo-space') !== -1) {
+//                 space.style.paddingBottom = `${event.data.data[0].bottom}px`;
+//             }
 
-            break;
-        }
-    };
+//             break;
+//         }
+//     };
 
-    if (window.addEventListener) {
-        window.addEventListener('message', onMessage, false);
-    }
-    else if (window.attachEvent) {
-        window.attachEvent('onmessage', onMessage);
-    }
-}
+//     if (window.addEventListener) {
+//         window.addEventListener('message', onMessage, false);
+//     }
+//     else if (window.attachEvent) {
+//         window.attachEvent('onmessage', onMessage);
+//     }
+// }
