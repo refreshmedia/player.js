@@ -99,6 +99,7 @@ class Player {
 
                 getOEmbedData(url, params).then((data) => {
                     const iframe = createEmbed(data, element);
+                    this.containerElement = element;
                     this.element = iframe;
 
                     swapCallbacks(element, iframe);
@@ -847,7 +848,21 @@ class Player {
     }
 
     destroy() {
-        console.log('implement this method');
+        // Remove the iframe element
+        this.element.remove();
+
+        // Remove attributes from container
+        if (this.containerElement) {
+            this.containerElement.removeAttribute('data-vimeo-initialized');
+        }
+
+        // Remove weakmap references
+        readyMap.delete(this);
+        playerMap.delete(this.element);
+
+        // Remove references
+        this.containerElement = null;
+        this.element = null;
     }
 }
 
