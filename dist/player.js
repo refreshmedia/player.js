@@ -1,4 +1,4 @@
-/*! @vimeo/player v2.1.0 | (c) 2017 Vimeo | MIT License | https://github.com/vimeo/player.js */
+/*! @refreshmedia/player v2.2.0 | (c) 2017 Vimeo | MIT License | https://github.com/refreshmedia/player.js */
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
 	typeof define === 'function' && define.amd ? define(factory) :
@@ -968,41 +968,40 @@ function initializeEmbeds() {
  * @param {HTMLElement} [parent=document] The parent element.
  * @return {void}
  */
-function resizeEmbeds() {
-    var parent = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : document;
+// export function resizeEmbeds(parent = document) {
+//     const onMessage = (event) => {
+//         if (!isVimeoUrl(event.origin)) {
+//             return;
+//         }
 
-    var onMessage = function onMessage(event) {
-        if (!isVimeoUrl(event.origin)) {
-            return;
-        }
+//         if (!event.data || event.data.event !== 'spacechange') {
+//             return;
+//         }
 
-        if (!event.data || event.data.event !== 'spacechange') {
-            return;
-        }
+//         const iframes = parent.querySelectorAll('iframe');
 
-        var iframes = parent.querySelectorAll('iframe');
+//         for (let i = 0; i < iframes.length; i++) {
+//             if (iframes[i].contentWindow !== event.source) {
+//                 continue;
+//             }
 
-        for (var i = 0; i < iframes.length; i++) {
-            if (iframes[i].contentWindow !== event.source) {
-                continue;
-            }
+//             const space = iframes[i].parentElement;
 
-            var space = iframes[i].parentElement;
+//             if (space && space.className.indexOf('vimeo-space') !== -1) {
+//                 space.style.paddingBottom = `${event.data.data[0].bottom}px`;
+//             }
 
-            if (space && space.className.indexOf('vimeo-space') !== -1) {
-                space.style.paddingBottom = event.data.data[0].bottom + 'px';
-            }
+//             break;
+//         }
+//     };
 
-            break;
-        }
-    };
-
-    if (window.addEventListener) {
-        window.addEventListener('message', onMessage, false);
-    } else if (window.attachEvent) {
-        window.attachEvent('onmessage', onMessage);
-    }
-}
+//     if (window.addEventListener) {
+//         window.addEventListener('message', onMessage, false);
+//     }
+//     else if (window.attachEvent) {
+//         window.attachEvent('onmessage', onMessage);
+//     }
+// }
 
 /**
  * @module lib/postmessage
@@ -1204,6 +1203,7 @@ var Player = function () {
 
                 getOEmbedData(url, params).then(function (data) {
                     var iframe = createEmbed(data, element);
+                    _this.containerElement = element;
                     _this.element = iframe;
 
                     swapCallbacks(element, iframe);
@@ -2068,13 +2068,31 @@ var Player = function () {
         value: function setVolume(volume) {
             return this.set('volume', volume);
         }
+    }, {
+        key: 'destroy',
+        value: function destroy() {
+            // Remove the iframe element
+            this.element.remove();
+
+            // Remove attributes from container
+            if (this.containerElement) {
+                this.containerElement.removeAttribute('data-vimeo-initialized');
+            }
+
+            // Remove weakmap references
+            readyMap.delete(this);
+            playerMap.delete(this.element);
+
+            // Remove references
+            this.containerElement = null;
+            this.element = null;
+        }
     }]);
 
     return Player;
 }();
 
 initializeEmbeds();
-resizeEmbeds();
 
 return Player;
 
