@@ -1,11 +1,12 @@
 {
-  "name": "@vimeo/player",
-  "version": "2.1.0",
+  "name": "@refreshmedia/player",
+  "version": "2.2.0",
   "description": "Interact with and control an embedded Vimeo Player.",
   "license": "MIT",
   "author": "Brad Dougherty <brad@vimeo.com>",
   "contributors": [
-    "Brad Dougherty <brad@vimeo.com> (https://brad.is)"
+    "Brad Dougherty <brad@vimeo.com> (https://brad.is)",
+    "Tyler Smith <tyler@getexhibit.com> (https://getexhibit.com)"
   ],
   "scripts": {
     "clean": "rimraf dist/*",
@@ -33,8 +34,8 @@
     "src",
     "dist"
   ],
-  "repository": "vimeo/player.js",
-  "bugs": "https://github.com/vimeo/player.js/issues",
+  "repository": "refreshmedia/player.js",
+  "bugs": "https://github.com/refreshmedia/player.js/issues",
   "keywords": [
     "vimeo",
     "player",
