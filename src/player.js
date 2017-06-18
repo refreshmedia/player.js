@@ -99,6 +99,7 @@ class Player {
 
                 getOEmbedData(url, params).then((data) => {
                     const iframe = createEmbed(data, element);
+                    // CUSTOM: Track reference to the containing element, since it is mapped in the playerMap and has attributes applied to it
                     this.containerElement = element;
                     this.element = iframe;
 
@@ -858,11 +859,12 @@ class Player {
 
         // Remove weakmap references
         readyMap.delete(this);
+        playerMap.delete(this.containerElement);
         playerMap.delete(this.element);
 
-        // Remove references
+        // Remove reference to custom container element
         this.containerElement = null;
-        this.element = null;
+        // NOTE: Leave this.element as is, because async calls require it from postMessage callbacks
     }
 }
 
