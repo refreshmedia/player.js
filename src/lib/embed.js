@@ -18,13 +18,15 @@ const oEmbedParameters = [
     'autoplay',
     'autopause',
     'loop',
-    'responsive'
+    'responsive',
+    'speed',
+    'background',
+    'transparent'
 ];
 
 /**
  * Get the 'data-vimeo'-prefixed attributes from an element as an object.
  *
- * @author Brad Dougherty <brad@vimeo.com>
  * @param {HTMLElement} element The element.
  * @param {Object} [defaults={}] The default values to use.
  * @return {Object<string, string>}
@@ -44,7 +46,6 @@ export function getOEmbedParameters(element, defaults = {}) {
 /**
  * Make an oEmbed call for the specified URL.
  *
- * @author Brad Dougherty <brad@vimeo.com>
  * @param {string} videoUrl The vimeo.com url for the video.
  * @param {Object} [params] Parameters to pass to oEmbed.
  * @return {Promise}
@@ -98,7 +99,6 @@ export function getOEmbedData(videoUrl, params = {}) {
 /**
  * Create an embed from oEmbed data inside an element.
  *
- * @author Brad Dougherty <brad@vimeo.com>
  * @param {object} data The oEmbed data.
  * @param {HTMLElement} element The element to put the iframe in.
  * @return {HTMLIFrameElement} The iframe embed.
@@ -124,7 +124,6 @@ export function createEmbed({ html }, element) {
 /**
  * Initialize all embeds within a specific element
  *
- * @author Brad Dougherty <brad@vimeo.com>
  * @param {HTMLElement} [parent=document] The parent element.
  * @return {void}
  */
@@ -160,7 +159,6 @@ export function initializeEmbeds(parent = document) {
 /**
  * Resize embeds when messaged by the player.
  *
- * @author Brad Dougherty <brad@vimeo.com>
  * @param {HTMLElement} [parent=document] The parent element.
  * @return {void}
  */
